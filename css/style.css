@@ -1,0 +1,21 @@
+h1 h2 {
+   font-size: x-large;
+   font-weight: bold;
+   text-align: center;
+}
+
+body {
+    background-color: chartreuse;
+    text-align: center;
+}
+
+section {
+    width: 65%;
+    margin: auto;
+    border: 5px solid red;
+    height: 500px;
+}
+img {
+    width: 400px;
+    
+}
