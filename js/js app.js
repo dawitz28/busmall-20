@@ -182,7 +182,8 @@ function clickHandler(event) {
 
     if (selector === tatalClicksAllowed) {
       container.removeEventListener('selector', clickHandler);
-
+      var strAllImages = JSON.stringify(allImages);
+      localStorage.setItem('picture', strAllImages);
       renderChart();
 
       renderResults();
