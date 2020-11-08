@@ -18,3 +18,8 @@ img {
     width: 200px;
     
 }
+#myChart {
+    width: 700px;
+    height: 400px;
+    margin: auto;
+}

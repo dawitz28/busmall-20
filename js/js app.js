@@ -82,6 +82,18 @@ function renderPicture() {
   allImages[pictureThree].views++;
 }
 
+var nameData = [];
+var viewsData = [];
+var votesData = [];
+
+function getData() {
+  for (var i = 0; i < allImages.length; i++) {
+    nameData.push(allImages[i].name);
+    viewsData.push(allImages[i].views);
+    votesData.push(allImages[i].votes);
+  }
+}
+
 function renderResults() {
   for (var i = 0; i < allImages.length; i++) {
     var li = document.createElement('li');
@@ -90,6 +102,69 @@ function renderResults() {
   }
 }
 renderPicture();
+
+function renderChart() {
+  getData();
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: nameData, // names of array goes here.
+      datasets: [{
+        label: '# of Votes',
+        data: votesData, // votes of array goes here.
+        backgroundColor: ['rgb(22, 142, 161)'
+          // 'rgba(255, 99, 132, 0.2)',
+          // 'rgba(54, 162, 235, 0.2)',
+          // 'rgba(255, 206, 86, 0.2)',
+          // 'rgba(75, 192, 192, 0.2)',
+          // 'rgba(153, 102, 255, 0.2)',
+          // 'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: ['rgb(27, 3, 179)'
+          // 'rgba(255, 99, 132, 1)',
+          // 'rgba(54, 162, 235, 1)',
+          // 'rgba(255, 206, 86, 1)',
+          // 'rgba(75, 192, 192, 1)',
+          // 'rgba(153, 102, 255, 1)',
+          // 'rgb(169, 249, 21)'
+        ],
+        borderWidth: 1
+      },
+      {
+        label: '# of Views',
+        data: viewsData, // views of array goes here.
+        backgroundColor: ['rgb(191, 63, 63)'
+          // 'rgba(255, 99, 132, 0.2)',
+          // 'rgba(54, 162, 235, 0.2)',
+          // 'rgba(255, 206, 86, 0.2)',
+          // 'rgba(75, 192, 192, 0.2)',
+          // 'rgba(153, 102, 255, 0.2)',
+          // 'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: ['rgb(76, 25, 25)'
+          // 'rgba(255, 99, 132, 1)',
+          // 'rgba(54, 162, 235, 1)',
+          // 'rgba(255, 206, 86, 1)',
+          // 'rgba(75, 192, 192, 1)',
+          // 'rgba(153, 102, 255, 1)',
+          // 'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: false,
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+}
 
 // event handler
 function clickHandler(event) {
@@ -108,6 +183,8 @@ function clickHandler(event) {
     if (selector === tatalClicksAllowed) {
       container.removeEventListener('selector', clickHandler);
 
+      renderChart();
+
       renderResults();
     }
   } else {
@@ -117,6 +194,4 @@ function clickHandler(event) {
 
 // event listener
 container.addEventListener('click', clickHandler);
-
-
 
