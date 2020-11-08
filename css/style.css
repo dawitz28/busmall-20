@@ -10,10 +10,9 @@ body {
 }
 
 section {
-    width: 900px;
+    width: 700px;
     margin: auto;
     border: 5px solid red;
-    height: 500px;
 }
 img {
     width: 200px;
