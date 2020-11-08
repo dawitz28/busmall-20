@@ -1,18 +1,16 @@
 'use strict';
 
-//
-
 var allImages = [];
 var tatalClicksAllowed = 25;
-var renderImages = [];
 var selector = 0;
+var renderImages = [];
 var container = document.getElementById('container');
 var imgOneEl = document.getElementById('img-one');
 var imgTwoEl = document.getElementById('img-two');
 var imgThreeEl = document.getElementById('img-three');
 var imgList = document.getElementById('img-list');
 
-// constructor 
+// constructor
 function Picture(name) {
   this.name = name;
   this.src = `img/${name}.jpg`;
@@ -25,7 +23,8 @@ function Picture(name) {
 function getRandomImage() {
   return Math.floor(Math.random() * allImages.length);
 }
-//executable code 
+
+//executable code
 new Picture('bag');
 new Picture('banana');
 new Picture('bathroom');
@@ -50,13 +49,12 @@ new Picture('wine-glass');
 // console.log(getRandomImageIndex());
 
 function populateRenderImage() {
-  renderImages = [];
-  while (renderImages.length > 0){
-    renderImages.pop();
+  while (renderImages.length > 3) {
+    renderImages.shift();
   }
-  while (renderImages.length < 3){
+  while (renderImages.length < 6) {
     var newImage = getRandomImage();
-    while (!renderImages.includes(newImage)){
+    while (!renderImages.includes(newImage)) {
       renderImages.push(newImage);
     }
 
@@ -64,38 +62,12 @@ function populateRenderImage() {
   console.log(renderImages);
 }
 
-
-var uniqueIndex = [];
-
-// function getUniqueIndex() {
-//     while (uniqueIndex.length < 6){
-//         var random = randomNumber(allImages.length);
-//         if (uniqueIndex.includes(random)){
-//             uniqueIndex.push(random);
-//         }
-//     }
-// }
-
-// function removeThree() {
-//     for (var i = 0; i < 3; i++){
-//         uniqueIndex.shift();
-//     }
-// }
-
 function renderPicture() {
-  // var uniqueIndex = getRandomIndex()
 
   populateRenderImage();
   var pictureOne = renderImages[0];
   var pictureTwo = renderImages[1];
   var pictureThree = renderImages[2];
-
-  // while (pictureTwo === pictureOne) {
-  //     pictureTwo = getRandomImage();
-  //     while (pictureThree === pictureTwo){
-  //         pictureThree = getRandomImage();
-  //     }
-  // }
 
   imgOneEl.src = allImages[pictureOne].src;
   imgOneEl.alt = allImages[pictureOne].name;
@@ -104,7 +76,6 @@ function renderPicture() {
   imgTwoEl.src = allImages[pictureTwo].src;
   imgTwoEl.alt = allImages[pictureTwo].name;
   allImages[pictureTwo].views++;
-
 
   imgThreeEl.src = allImages[pictureThree].src;
   imgThreeEl.alt = allImages[pictureThree].name;
@@ -115,55 +86,37 @@ function renderResults() {
   for (var i = 0; i < allImages.length; i++) {
     var li = document.createElement('li');
     li.textContent = `${allImages[i].name} had ${allImages[i].votes} votes, and they saw ${allImages[i].views} times.`;
+    imgList.appendChild(li);
+  }
+}
+renderPicture();
+
+// event handler
+function clickHandler(event) {
+  var clickedItem = event.target.alt;
+  if (clickedItem) {
+    console.log(clickedItem);
+    selector++;
+
+    for (var i = 0; i < allImages.length; i++) {
+      if (clickedItem === allImages[i].name) {
+        allImages[i].votes++;
+      }
+    }
+    renderPicture();
+
+    if (selector === tatalClicksAllowed) {
+      container.removeEventListener('selector', clickHandler);
+
+      renderResults();
+    }
+  } else {
+    alert('please click image');
   }
 }
 
-
-// while(renderImages.length < 3){
-//     var random = randomIndex(allImages.length);
-//     while(renderImages.includes(random)){
-//         random = reandomIndex();
-//     }
-//     // you know this "item" is unique
-//     renderImages.push(random);
-// }
-
-// // function selectAllImages(){
-
-//     while(pictureOne === pictureTwo){
-//         pictureTwo = getRandomImageIndex();
-//     }
-// // }
-
-// console.log(pictureOne, pictureTwo, pictureThree);
-// event handler 
-
-
-
-
-renderImages();
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// event listener 
+// event listener
+container.addEventListener('click', clickHandler);
 
 
 
