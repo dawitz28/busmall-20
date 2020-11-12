@@ -24,27 +24,35 @@ function getRandomImage() {
   return Math.floor(Math.random() * allImages.length);
 }
 
+var retrivedResults = localStorage.getItem('imageResults'); //look into this.
+if (retrivedResults) {
+  var parsedRetrievedResults = JSON.parse(retrivedResults);
+  allImages = parsedRetrievedResults;
+} else {
+  new Picture('bag');
+  new Picture('banana');
+  new Picture('bathroom');
+  new Picture('boots');
+  new Picture('breakfast');
+  new Picture('bubblegum');
+  new Picture('chair');
+  new Picture('cthulhu');
+  new Picture('dog-duck');
+  new Picture('dragon');
+  new Picture('pen');
+  new Picture('pet-sweep');
+  new Picture('scissors');
+  new Picture('shark');
+  new Picture('sweep');
+  new Picture('tauntaun');
+  new Picture('unicorn');
+  new Picture('usb');
+  new Picture('water-can');
+  new Picture('wine-glass');
+}
+
 //executable code
-new Picture('bag');
-new Picture('banana');
-new Picture('bathroom');
-new Picture('boots');
-new Picture('breakfast');
-new Picture('bubblegum');
-new Picture('chair');
-new Picture('cthulhu');
-new Picture('dog-duck');
-new Picture('dragon');
-new Picture('pen');
-new Picture('pet-sweep');
-new Picture('scissors');
-new Picture('shark');
-new Picture('sweep');
-new Picture('tauntaun');
-new Picture('unicorn');
-new Picture('usb');
-new Picture('water-can');
-new Picture('wine-glass');
+
 
 // console.log(getRandomImageIndex());
 
@@ -186,7 +194,7 @@ function clickHandler(event) {
       localStorage.setItem('picture', strAllImages);
       renderChart();
 
-      renderResults();
+      renderResults(); select
     }
   } else {
     alert('please click image');
